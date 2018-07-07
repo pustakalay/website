@@ -10,7 +10,6 @@
     <li>format : {{ book.format }}</li>
     <li>language : {{ book.language }}</li>
     <li>price : {{ book.price }}</li>
-    <li>imageLocation : {{ book.imageLocation }}</li>
 </ul>
 
 <form action="{% url 'bookapp:buyBook' book.id %}" method="post">
