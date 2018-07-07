@@ -45,6 +45,6 @@ class Book(models.Model):
     inventory = models.BigIntegerField(default=200)
     description = models.TextField(max_length=20000)
     author = models.CharField(max_length=200)
-    aboutAuthor = models.TextField(max_length=20000)
+    aboutAuthor = models.TextField(max_length=20000,blank=True)
     image_front = models.ImageField(blank=True)
     image_back = models.ImageField(blank=True)
