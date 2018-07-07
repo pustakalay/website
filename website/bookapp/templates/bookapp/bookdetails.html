@@ -4,13 +4,11 @@
     <li>translatedBy : {{ book.translatedBy }}</li>
     <li>description : {{ book.description }}</li>
     <li>publisher : {{ book.publisher }}</li>
-    <li>isbn : {{ book.isbn }}</li>
     <li>dimension : {{ book.dimension }}</li>
     <li>numberOfPages : {{ book.numberOfPages }}</li>
     <li>format : {{ book.format }}</li>
     <li>language : {{ book.language }}</li>
     <li>price : {{ book.price }}</li>
-    <li>imageLocation : {{ book.imageLocation }}</li>
 </ul>
 
 <form action="{% url 'bookapp:buyBook' book.id %}" method="post">

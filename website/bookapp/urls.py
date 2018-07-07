@@ -4,8 +4,8 @@ from . import views
 
 app_name = 'bookapp'
 urlpatterns = [
-    url(r'', views.index, name='index'),
-    url(r'book/<int:book_id>/', views.bookDetail, name='bookDetail'),
-    url(r'buy/<int:book_id>/', views.buyBook, name='buyBook'),
+    url('^$', views.index, name='index'),
+    url(r'^(?P<book_id>[0-9000]+)/bookDetails/$', views.bookDetail, name='bookDetail'),
+    url(r'^(?P<book_id>[0-9000]+)/buyBook/$', views.buyBook, name='buyBook'),
     url(r'search/', views.search, name='search'),
 ]
