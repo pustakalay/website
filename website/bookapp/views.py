@@ -26,7 +26,7 @@ def buyBook(request, book_id):
 
 def search(request):
     query = request.GET.get('q')
-    bookList = Book.objects.all().filter(Q(title__icontains=query) | Q(author__icontains=query) | Q(publisher__icontains=query) | Q(isbn__iexact=query))
+    bookList = Book.objects.all().filter(Q(title__icontains=query) | Q(author__icontains=query) | Q(publisher__icontains=query))
     bookList.order_by('-numberOfCopiesSold')
     context = {'bookList': bookList}
     return render(request, 'bookapp/index.html', context)
