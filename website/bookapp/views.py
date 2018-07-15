@@ -4,13 +4,8 @@ from .models import Book
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
-# Create your views here.
-
-from django.http import HttpResponse
-
-
 def index(request):
-    bookList = Book.objects.all().order_by('-numberOfCopiesSold')
+    bookList = Book.objects.all().order_by('-rank')
     context = {'bookList': bookList}
     return render(request, 'bookapp/index.html', context)
 
@@ -26,8 +21,39 @@ def buyBook(request, book_id):
 
 def search(request):
     query = request.GET.get('q')
-    bookList = Book.objects.all().filter(Q(title__icontains=query) | Q(author__icontains=query) | Q(publisher__icontains=query))
-    bookList.order_by('-numberOfCopiesSold')
-    context = {'bookList': bookList}
+    filter = request.GET.get('f')
+
+    if filter == 'Title':
+        bookList = searchTitle(query)
+    elif filter == 'Author':
+        bookList = searchAuthor(query)
+    elif filter == 'Isbn10/13':
+        bookList = searchIsbn(query)
+    elif filter == 'Publisher':
+        bookList = searchPublisher(query)
+    elif filter == 'None':
+        bookListTitle = searchTitle(query)
+        bookListAuthor = searchAuthor(query)
+        bookListIsbn = searchIsbn(query)
+        bookListPublisher = searchPublisher(query)
+        bookList = bookListTitle | bookListAuthor | bookListIsbn | bookListPublisher
+
+    orderBookList = bookList.order_by('-rank')
+    context = {'bookList': orderBookList}
     return render(request, 'bookapp/index.html', context)
 
+def searchTitle(query):
+    bookList = Book.objects.all().filter(Q(title__icontains=query))
+    return bookList
+
+def searchAuthor(query):
+    bookList = Book.objects.all().filter(Q(author__icontains=query))
+    return bookList
+
+def searchIsbn(query):
+    bookList = Book.objects.all().filter(Q(isbn10__iexact=query) | Q(isbn13__iexact=query))
+    return bookList
+
+def searchPublisher(query):
+    bookList = Book.objects.all().filter(Q(publisher__icontains=query))
+    return bookList
