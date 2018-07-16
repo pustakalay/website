@@ -5,6 +5,11 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self):
+        self.rank = (0.2 * self.numberOfCopiesSold)+(0.4 * self.pustakalayRating)+(0.1 * self.avgcustomerRating)+(0.3 * self.newArrival)
+        super(Book,self).save()
+
     LANGUAGE_CHOICES = (
         ('HINDI','Hindi'),
         ('ENGLISH','English'),
