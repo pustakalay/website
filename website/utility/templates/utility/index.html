@@ -1,0 +1,10 @@
+<h1> Welcome to Pustakalay. </h1>
+<h1>This is reciept creator Utility.</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {{ form.as_p }}
+    {{ form.as_p }}
+    {{ form.as_p }}	
+    <button type="submit">Upload</button>
+</form>

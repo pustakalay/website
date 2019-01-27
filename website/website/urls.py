@@ -19,5 +19,6 @@ from django.conf.urls import include
 
 urlpatterns = [
     url('admin/', admin.site.urls),
+    url('utility/', include('utility.urls')),
     url('', include('bookapp.urls')),
 ]
