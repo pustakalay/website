@@ -6,6 +6,7 @@ from django.views.static import serve
 from forms import DocumentForm
 from django.core.files.storage import FileSystemStorage
 from joinImage import execute
+from pdf2image import convert_from_path
 import os.path
 from django.http import HttpResponse
 
@@ -28,15 +29,16 @@ def index(request):
             fs = FileSystemStorage()
             i = 1
             for file in request.FILES.getlist('document'):
-                filename = 'Test' + str(i) + '.jpg' 
-                fs.save(filename, file)
+                filename = 'Test-' + str(i) + '-1.jpg'
+                pdffilename = 'Test-' + str(i)
+                if (".jpg" in file.name) or (".jpeg" in file.name):                     
+                    fs.save(filename, file)
+                if (".pdf" in file.name):
+                    fs.save(file.name, file)
+                    pdf_file_path = os.path.join(folder, file.name)
+                    pages = convert_from_path(pdf_file_path, output_folder=folder, fmt='jpg', output_file=pdffilename)
                 i = i + 1
             execute()
-#             file_name = 'Result.jpg'
-#             response = HttpResponse(mimetype='application/force-download')
-#             response['Content-Disposition'] = 'attachment; filename=%s' % smart_str(file_name)
-#             response['X-Sendfile'] = smart_str(folder)
-#             return response
             filepath = os.path.join(folder, 'Result.jpg')
             return serve(request, os.path.basename(filepath), os.path.dirname(filepath))
             return render(request, 'utility/index.html', {

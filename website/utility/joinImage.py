@@ -10,7 +10,7 @@ import os.path
 def execute():
     BASE = os.path.dirname(os.path.abspath(__file__))
     mypath = os.path.abspath(os.path.join(BASE, '..'))
-    list_im = [os.path.join(mypath, "media/Test1.jpg"), os.path.join(mypath, "media/Test2.jpg")]
+    list_im = [os.path.join(mypath, "media/Test-1-1.jpg"), os.path.join(mypath, "media/Test-2-1.jpg")]
     imgs    = [ Image.open(i) for i in list_im ]
     # pick the image which is the smallest, and resize the others to match it (can be arbitrary image shape here)
     min_shape = sorted( [(np.sum(i.size), i.size ) for i in imgs])[0][1]
@@ -20,7 +20,7 @@ def execute():
     imgs_comb = Image.fromarray( imgs_comb)
     imgs_comb.save( os.path.join(mypath, "media/Horizontal1.jpg") )
     
-    list_im = [os.path.join(mypath, "media/Test3.jpg"), os.path.join(mypath, "media/Test4.jpg")]
+    list_im = [os.path.join(mypath, "media/Test-3-1.jpg"), os.path.join(mypath, "media/Test-4-1.jpg")]
     imgs    = [ Image.open(i) for i in list_im ]
     # pick the image which is the smallest, and resize the others to match it (can be arbitrary image shape here)
     min_shape = sorted( [(np.sum(i.size), i.size ) for i in imgs])[0][1]
