@@ -16,9 +16,17 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.conf.urls import include
+import views
+from django.contrib.auth import views as auth_views
+
 
 urlpatterns = [
+    url('^$', views.home_page, name = 'home'),
+    url('^logout/$', auth_views.LogoutView.as_view(), name = 'logout'),
+    url('^login/$', views.login_page, name = 'login_page'),
+    url('^gotobooks/$', views.gotobooks, name = 'gotobooks'),
+    url('^register/$', views.register_page, name = 'register_page'),
     url('admin/', admin.site.urls),
     url('utility/', include('utility.urls')),
-    url('', include('bookapp.urls')),
+    url('books/', include('bookapp.urls')),
 ]
