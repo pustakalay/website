@@ -24,6 +24,7 @@ urlpatterns = [
     url('^$', views.home_page, name = 'home'),
     url('^logout/$', auth_views.LogoutView.as_view(), name = 'logout'),
     url('^login/$', views.login_page, name = 'login_page'),
+    url(r'^auth/', include('social_django.urls', namespace='social')), 
     url('^gotobooks/$', views.gotobooks, name = 'gotobooks'),
     url('^register/$', views.register_page, name = 'register_page'),
     url('admin/', admin.site.urls),
